@@ -10,6 +10,7 @@
     "schema": "ts-node --transpile-only graphql/schema.ts --nexusTypegen"
   },
   "dependencies": {
+    "@prisma/client": "^4.1.1",
     "apollo-server-micro": "^3.10.0",
     "graphql": "^16.5.0",
     "next": "12.2.3",
@@ -24,6 +25,7 @@
     "@types/react-dom": "^18.0.6",
     "eslint": "8.20.0",
     "eslint-config-next": "12.2.3",
+    "prisma": "^4.1.1",
     "ts-node": "^10.9.1"
   }
 }
