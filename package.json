@@ -3,15 +3,17 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "npm run generate:graphql-schema && npm run generate:prisma-client && next dev",
+    "build": "npm generate:graphql-schema && npm generate:prisma-client && next build",
     "start": "next start",
     "lint": "next lint",
-    "schema": "ts-node --transpile-only graphql/schema.ts --nexusTypegen"
+    "generate:graphql-schema": "ts-node --transpile-only graphql/schema.ts --nexusTypegen",
+    "generate:prisma-client": "npx prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^4.1.1",
     "apollo-server-micro": "^3.10.0",
+    "bcrypt": "^5.0.1",
     "graphql": "^16.5.0",
     "next": "12.2.3",
     "nexus": "^1.3.0",
@@ -19,6 +21,7 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
     "@types/express": "^4.17.13",
     "@types/node": "^18.6.3",
     "@types/react": "^18.0.15",

@@ -10,6 +10,8 @@ datasource db {
   url      = "file:./dev.db"
 }
 
-model Test {
-    id Int @id
+model SuperUser {
+    id String @id @default(uuid())
+    name String @unique
+    password String
 }
