@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "generate:graphql-schema": "ts-node --transpile-only graphql/schema.ts --nexusTypegen",
-    "generate:prisma-client": "npx prisma generate"
+    "generate:prisma-client": "npx prisma generate",
+    "clean:db": "npx prisma migrate reset && ts-node ./prisma/seed.ts"
   },
   "dependencies": {
     "@prisma/client": "^4.1.1",
