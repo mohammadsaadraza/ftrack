@@ -6,12 +6,33 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "postgresql"
+  url      = env("POSTGRES_URL")
 }
 
 model SuperUser {
     id String @id @default(uuid())
     name String @unique
     password String
+}
+
+model Transaction {
+    id String @id @default(uuid())
+    type TransactionCategory
+    currency CurrencyType
+    amount Int
+    date DateTime
+    createdAt DateTime @default(now())
+
+    @@index([type, date])
+}
+
+enum TransactionCategory{
+    Income
+    Expense
+}
+
+enum CurrencyType {
+    USD
+    PKR
 }
