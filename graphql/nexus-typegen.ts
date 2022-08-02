@@ -5,8 +5,23 @@
 
 
 import type { Context } from "./context"
-
-
+import type { core } from "nexus"
+declare global {
+  interface NexusGenCustomInputMethods<TypeName extends string> {
+    /**
+     * A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+     */
+    datetime<FieldName extends string>(fieldName: FieldName, opts?: core.CommonInputFieldConfig<TypeName, FieldName>): void // "DateTime";
+  }
+}
+declare global {
+  interface NexusGenCustomOutputMethods<TypeName extends string> {
+    /**
+     * A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+     */
+    datetime<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "DateTime";
+  }
+}
 
 
 declare global {
@@ -17,6 +32,8 @@ export interface NexusGenInputs {
 }
 
 export interface NexusGenEnums {
+  CurrencyType: "PKR" | "USD"
+  TransactionCategory: "Expense" | "Income"
 }
 
 export interface NexusGenScalars {
@@ -25,14 +42,19 @@ export interface NexusGenScalars {
   Float: number
   Boolean: boolean
   ID: string
+  DateTime: any
 }
 
 export interface NexusGenObjects {
-  Link: { // root type
-    link_name?: string | null; // String
-  }
-  Mutation: {};
   Query: {};
+  Transaction: { // root type
+    createdAt: NexusGenScalars['DateTime']; // DateTime!
+    currency: NexusGenEnums['CurrencyType']; // CurrencyType!
+    date: NexusGenScalars['DateTime']; // DateTime!
+    description: string; // String!
+    id: string; // ID!
+    type: NexusGenEnums['TransactionCategory']; // TransactionCategory!
+  }
 }
 
 export interface NexusGenInterfaces {
@@ -43,29 +65,33 @@ export interface NexusGenUnions {
 
 export type NexusGenRootTypes = NexusGenObjects
 
-export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
+export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars & NexusGenEnums
 
 export interface NexusGenFieldTypes {
-  Link: { // field return type
-    link_name: string | null; // String
-  }
-  Mutation: { // field return type
-    addTransaction: string; // ID!
-  }
   Query: { // field return type
     ok: boolean; // Boolean!
+  }
+  Transaction: { // field return type
+    createdAt: NexusGenScalars['DateTime']; // DateTime!
+    currency: NexusGenEnums['CurrencyType']; // CurrencyType!
+    date: NexusGenScalars['DateTime']; // DateTime!
+    description: string; // String!
+    id: string; // ID!
+    type: NexusGenEnums['TransactionCategory']; // TransactionCategory!
   }
 }
 
 export interface NexusGenFieldTypeNames {
-  Link: { // field return type name
-    link_name: 'String'
-  }
-  Mutation: { // field return type name
-    addTransaction: 'ID'
-  }
   Query: { // field return type name
     ok: 'Boolean'
+  }
+  Transaction: { // field return type name
+    createdAt: 'DateTime'
+    currency: 'CurrencyType'
+    date: 'DateTime'
+    description: 'String'
+    id: 'ID'
+    type: 'TransactionCategory'
   }
 }
 
@@ -82,7 +108,7 @@ export type NexusGenObjectNames = keyof NexusGenObjects;
 
 export type NexusGenInputNames = never;
 
-export type NexusGenEnumNames = never;
+export type NexusGenEnumNames = keyof NexusGenEnums;
 
 export type NexusGenInterfaceNames = never;
 
