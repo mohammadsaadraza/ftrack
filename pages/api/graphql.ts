@@ -4,10 +4,12 @@ import {
     ApolloServerPluginLandingPageLocalDefault
 } from "apollo-server-core";
 
-import schema from "../../graphql/schema"
+import { schema }from "../../graphql/schema";
+import { context } from "../../graphql/context";
 
 const apolloServer = new ApolloServer({
     schema,
+    context,
     cache: "bounded",
     introspection: true,
     plugins: [ApolloServerPluginLandingPageLocalDefault({embed: true})]

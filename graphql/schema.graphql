@@ -6,6 +6,10 @@ type Link {
   link_name: String
 }
 
+type Mutation {
+  addTransaction: ID!
+}
+
 type Query {
   ok: Boolean!
 }
