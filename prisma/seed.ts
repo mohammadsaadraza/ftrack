@@ -9,6 +9,7 @@ async function main() {
             type: "Expense",
             date: new Date(2022,7,8,13, 5, 0),
             currency: "PKR",
+            description: "A test transaction",
             amount: 10000
         }
     })
