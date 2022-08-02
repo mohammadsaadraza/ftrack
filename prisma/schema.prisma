@@ -20,6 +20,7 @@ model Transaction {
     id String @id @default(uuid())
     type TransactionCategory
     currency CurrencyType
+    description String
     amount Int
     date DateTime
     createdAt DateTime @default(now())
