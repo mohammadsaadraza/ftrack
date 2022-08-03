@@ -6,7 +6,6 @@ export interface Context {
 }
 
 const prisma = new PrismaClient()
-prisma.$connect().catch(() => {throw new Error("Problem connecting to database") })
 
 export const context = ({ req } : { req: NextApiRequest}) : Context => {
     return {
