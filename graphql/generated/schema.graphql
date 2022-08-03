@@ -14,6 +14,7 @@ scalar DateTime
 
 type Mutation {
   addExpense(amount: Int!, currency: CurrencyType!, date: DateTime!, description: String!): Transaction!
+  addIncome(amount: Int!, currency: CurrencyType!, date: DateTime!, description: String!): Transaction!
 }
 
 type Query {

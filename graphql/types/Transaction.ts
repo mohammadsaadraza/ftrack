@@ -39,7 +39,7 @@ export const AddExpense = extendType({
                 currency: nonNull(CurrencyType)
             },
             async resolve(parent, args, context){
-                const trans =  await context.prisma.transaction.create({
+                return await context.prisma.transaction.create({
                     data: {
                         type: "Expense",
                         date: args.date,
@@ -48,8 +48,33 @@ export const AddExpense = extendType({
                         currency: args.currency
                     }
                 })
-                console.log(trans)
-                return trans
+            }
+        })
+    }
+})
+
+
+export const AddIncome = extendType({
+    type: "Mutation",
+    definition(t){
+        t.nonNull.field("addIncome", {
+            type: Transaction,
+            args: {
+                date: nonNull("DateTime"),
+                description: nonNull(stringArg()),
+                amount: nonNull(intArg()),
+                currency: nonNull(CurrencyType)
+            },
+            async resolve(parent, args, context){
+                return await context.prisma.transaction.create({
+                    data: {
+                        type: "Income",
+                        date: args.date,
+                        description: args.description,
+                        amount: args.amount,
+                        currency: args.currency
+                    }
+                })
             }
         })
     }
