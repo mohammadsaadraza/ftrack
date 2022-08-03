@@ -13,6 +13,7 @@ export const Transaction = objectType({
         t.nonNull.string("description")
         t.nonNull.datetime("date")
         t.nonNull.datetime("createdAt")
+        t.nonNull.datetime("updatedAt")
     }
 })
 

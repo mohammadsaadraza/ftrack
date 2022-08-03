@@ -54,6 +54,7 @@ export interface NexusGenObjects {
     description: string; // String!
     id: string; // ID!
     type: NexusGenEnums['TransactionCategory']; // TransactionCategory!
+    updatedAt: NexusGenScalars['DateTime']; // DateTime!
   }
 }
 
@@ -78,6 +79,7 @@ export interface NexusGenFieldTypes {
     description: string; // String!
     id: string; // ID!
     type: NexusGenEnums['TransactionCategory']; // TransactionCategory!
+    updatedAt: NexusGenScalars['DateTime']; // DateTime!
   }
 }
 
@@ -92,6 +94,7 @@ export interface NexusGenFieldTypeNames {
     description: 'String'
     id: 'ID'
     type: 'TransactionCategory'
+    updatedAt: 'DateTime'
   }
 }
 

@@ -23,6 +23,7 @@ type Transaction {
   description: String!
   id: ID!
   type: TransactionCategory!
+  updatedAt: DateTime!
 }
 
 enum TransactionCategory {
