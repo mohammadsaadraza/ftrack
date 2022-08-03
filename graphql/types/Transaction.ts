@@ -79,3 +79,30 @@ export const AddIncome = extendType({
         })
     }
 })
+
+export const getTransactions = extendType({
+    type: "Query",
+    definition(t){
+        t.nonNull.list.nonNull.field("getTransactions", {
+            type: Transaction,
+            args: {
+                type: TransactionType,
+                currency: CurrencyType
+            },
+            resolve: async (parent, args, context) => {
+                const where = {}
+                for (let key in args) {
+                    // @ts-ignore
+                    if(args[key]){
+                        // @ts-ignore
+                        where[key] = args[key]
+                    }
+                }
+
+                return await context.prisma.transaction.findMany({
+                    where
+                })
+            }
+        })
+    }
+})

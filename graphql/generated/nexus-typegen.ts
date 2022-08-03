@@ -75,7 +75,7 @@ export interface NexusGenFieldTypes {
     addIncome: NexusGenRootTypes['Transaction']; // Transaction!
   }
   Query: { // field return type
-    ok: boolean; // Boolean!
+    getTransactions: NexusGenRootTypes['Transaction'][]; // [Transaction!]!
   }
   Transaction: { // field return type
     createdAt: NexusGenScalars['DateTime']; // DateTime!
@@ -94,7 +94,7 @@ export interface NexusGenFieldTypeNames {
     addIncome: 'Transaction'
   }
   Query: { // field return type name
-    ok: 'Boolean'
+    getTransactions: 'Transaction'
   }
   Transaction: { // field return type name
     createdAt: 'DateTime'
@@ -120,6 +120,12 @@ export interface NexusGenArgTypes {
       currency: NexusGenEnums['CurrencyType']; // CurrencyType!
       date: NexusGenScalars['DateTime']; // DateTime!
       description: string; // String!
+    }
+  }
+  Query: {
+    getTransactions: { // args
+      currency?: NexusGenEnums['CurrencyType'] | null; // CurrencyType
+      type?: NexusGenEnums['TransactionCategory'] | null; // TransactionCategory
     }
   }
 }

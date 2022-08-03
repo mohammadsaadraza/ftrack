@@ -18,7 +18,7 @@ type Mutation {
 }
 
 type Query {
-  ok: Boolean!
+  getTransactions(currency: CurrencyType, type: TransactionCategory): [Transaction!]!
 }
 
 type Transaction {
