@@ -1,4 +1,4 @@
-import {enumType, objectType} from "nexus";
+import {enumType, extendType, intArg, nonNull, objectType, stringArg} from "nexus";
 
 export const Transaction = objectType({
     name: "Transaction",
@@ -25,4 +25,32 @@ export const TransactionType = enumType({
 export const CurrencyType = enumType({
     name: "CurrencyType",
     members: ["USD", "PKR"]
+})
+
+export const AddExpense = extendType({
+    type: "Mutation",
+    definition(t){
+        t.nonNull.field("addExpense", {
+            type: Transaction,
+            args: {
+                date: nonNull("DateTime"),
+                description: nonNull(stringArg()),
+                amount: nonNull(intArg()),
+                currency: nonNull(CurrencyType)
+            },
+            async resolve(parent, args, context){
+                const trans =  await context.prisma.transaction.create({
+                    data: {
+                        type: "Expense",
+                        date: args.date,
+                        description: args.description,
+                        amount: args.amount,
+                        currency: args.currency
+                    }
+                })
+                console.log(trans)
+                return trans
+            }
+        })
+    }
 })

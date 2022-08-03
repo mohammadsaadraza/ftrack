@@ -46,6 +46,7 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  Mutation: {};
   Query: {};
   Transaction: { // root type
     createdAt: NexusGenScalars['DateTime']; // DateTime!
@@ -69,6 +70,9 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars & NexusGenEnums
 
 export interface NexusGenFieldTypes {
+  Mutation: { // field return type
+    addExpense: NexusGenRootTypes['Transaction']; // Transaction!
+  }
   Query: { // field return type
     ok: boolean; // Boolean!
   }
@@ -84,6 +88,9 @@ export interface NexusGenFieldTypes {
 }
 
 export interface NexusGenFieldTypeNames {
+  Mutation: { // field return type name
+    addExpense: 'Transaction'
+  }
   Query: { // field return type name
     ok: 'Boolean'
   }
@@ -99,6 +106,14 @@ export interface NexusGenFieldTypeNames {
 }
 
 export interface NexusGenArgTypes {
+  Mutation: {
+    addExpense: { // args
+      amount: number; // Int!
+      currency: NexusGenEnums['CurrencyType']; // CurrencyType!
+      date: NexusGenScalars['DateTime']; // DateTime!
+      description: string; // String!
+    }
+  }
 }
 
 export interface NexusGenAbstractTypeMembers {
