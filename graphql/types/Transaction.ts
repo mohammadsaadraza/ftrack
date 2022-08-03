@@ -1,4 +1,4 @@
-import {enumType, extendType, intArg, nonNull, objectType, stringArg} from "nexus";
+import {enumType, extendType, idArg, intArg, nonNull, objectType, stringArg} from "nexus";
 
 export const Transaction = objectType({
     name: "Transaction",
@@ -101,6 +101,25 @@ export const getTransactions = extendType({
 
                 return await context.prisma.transaction.findMany({
                     where
+                })
+            }
+        })
+    }
+})
+
+export const getOneTransaction = extendType({
+    type: "Query",
+    definition(t) {
+        t.field("getOneTransaction", {
+            type: Transaction,
+            args:{
+                id: nonNull(idArg())
+            },
+            async resolve(parent, args,context){
+                return await context.prisma.transaction.findUnique({
+                    where: {
+                        id: args.id
+                    }
                 })
             }
         })

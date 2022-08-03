@@ -18,6 +18,7 @@ type Mutation {
 }
 
 type Query {
+  getOneTransaction(id: ID!): Transaction
   getTransactions(currency: CurrencyType, type: TransactionCategory): [Transaction!]!
 }
 

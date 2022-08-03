@@ -75,6 +75,7 @@ export interface NexusGenFieldTypes {
     addIncome: NexusGenRootTypes['Transaction']; // Transaction!
   }
   Query: { // field return type
+    getOneTransaction: NexusGenRootTypes['Transaction'] | null; // Transaction
     getTransactions: NexusGenRootTypes['Transaction'][]; // [Transaction!]!
   }
   Transaction: { // field return type
@@ -94,6 +95,7 @@ export interface NexusGenFieldTypeNames {
     addIncome: 'Transaction'
   }
   Query: { // field return type name
+    getOneTransaction: 'Transaction'
     getTransactions: 'Transaction'
   }
   Transaction: { // field return type name
@@ -123,6 +125,9 @@ export interface NexusGenArgTypes {
     }
   }
   Query: {
+    getOneTransaction: { // args
+      id: string; // ID!
+    }
     getTransactions: { // args
       currency?: NexusGenEnums['CurrencyType'] | null; // CurrencyType
       type?: NexusGenEnums['TransactionCategory'] | null; // TransactionCategory
