@@ -46,6 +46,7 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  Mutation: {};
   Query: {};
   Transaction: { // root type
     createdAt: NexusGenScalars['DateTime']; // DateTime!
@@ -54,6 +55,7 @@ export interface NexusGenObjects {
     description: string; // String!
     id: string; // ID!
     type: NexusGenEnums['TransactionCategory']; // TransactionCategory!
+    updatedAt: NexusGenScalars['DateTime']; // DateTime!
   }
 }
 
@@ -68,8 +70,13 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars & NexusGenEnums
 
 export interface NexusGenFieldTypes {
+  Mutation: { // field return type
+    addExpense: NexusGenRootTypes['Transaction']; // Transaction!
+    addIncome: NexusGenRootTypes['Transaction']; // Transaction!
+  }
   Query: { // field return type
-    ok: boolean; // Boolean!
+    getOneTransaction: NexusGenRootTypes['Transaction'] | null; // Transaction
+    getTransactions: NexusGenRootTypes['Transaction'][]; // [Transaction!]!
   }
   Transaction: { // field return type
     createdAt: NexusGenScalars['DateTime']; // DateTime!
@@ -78,12 +85,18 @@ export interface NexusGenFieldTypes {
     description: string; // String!
     id: string; // ID!
     type: NexusGenEnums['TransactionCategory']; // TransactionCategory!
+    updatedAt: NexusGenScalars['DateTime']; // DateTime!
   }
 }
 
 export interface NexusGenFieldTypeNames {
+  Mutation: { // field return type name
+    addExpense: 'Transaction'
+    addIncome: 'Transaction'
+  }
   Query: { // field return type name
-    ok: 'Boolean'
+    getOneTransaction: 'Transaction'
+    getTransactions: 'Transaction'
   }
   Transaction: { // field return type name
     createdAt: 'DateTime'
@@ -92,10 +105,34 @@ export interface NexusGenFieldTypeNames {
     description: 'String'
     id: 'ID'
     type: 'TransactionCategory'
+    updatedAt: 'DateTime'
   }
 }
 
 export interface NexusGenArgTypes {
+  Mutation: {
+    addExpense: { // args
+      amount: number; // Int!
+      currency: NexusGenEnums['CurrencyType']; // CurrencyType!
+      date: NexusGenScalars['DateTime']; // DateTime!
+      description: string; // String!
+    }
+    addIncome: { // args
+      amount: number; // Int!
+      currency: NexusGenEnums['CurrencyType']; // CurrencyType!
+      date: NexusGenScalars['DateTime']; // DateTime!
+      description: string; // String!
+    }
+  }
+  Query: {
+    getOneTransaction: { // args
+      id: string; // ID!
+    }
+    getTransactions: { // args
+      currency?: NexusGenEnums['CurrencyType'] | null; // CurrencyType
+      type?: NexusGenEnums['TransactionCategory'] | null; // TransactionCategory
+    }
+  }
 }
 
 export interface NexusGenAbstractTypeMembers {

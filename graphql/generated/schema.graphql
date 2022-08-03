@@ -12,8 +12,14 @@ A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `dat
 """
 scalar DateTime
 
+type Mutation {
+  addExpense(amount: Int!, currency: CurrencyType!, date: DateTime!, description: String!): Transaction!
+  addIncome(amount: Int!, currency: CurrencyType!, date: DateTime!, description: String!): Transaction!
+}
+
 type Query {
-  ok: Boolean!
+  getOneTransaction(id: ID!): Transaction
+  getTransactions(currency: CurrencyType, type: TransactionCategory): [Transaction!]!
 }
 
 type Transaction {
@@ -23,6 +29,7 @@ type Transaction {
   description: String!
   id: ID!
   type: TransactionCategory!
+  updatedAt: DateTime!
 }
 
 enum TransactionCategory {

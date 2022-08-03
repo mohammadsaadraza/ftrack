@@ -12,7 +12,7 @@ datasource db {
 
 model SuperUser {
     id String @id @default(uuid())
-    name String @unique
+    type UserRole
     password String
 }
 
@@ -37,4 +37,9 @@ enum TransactionCategory{
 enum CurrencyType {
     USD
     PKR
+}
+
+enum UserRole{
+    Admin
+    Viewer
 }
