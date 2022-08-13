@@ -46,6 +46,9 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  AuthResponse: { // root type
+    token: string; // String!
+  }
   Mutation: {};
   Query: {};
   Transaction: { // root type
@@ -70,11 +73,15 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars & NexusGenEnums
 
 export interface NexusGenFieldTypes {
+  AuthResponse: { // field return type
+    token: string; // String!
+  }
   Mutation: { // field return type
     addExpense: NexusGenRootTypes['Transaction']; // Transaction!
     addIncome: NexusGenRootTypes['Transaction']; // Transaction!
   }
   Query: { // field return type
+    authenticate: NexusGenRootTypes['AuthResponse']; // AuthResponse!
     getOneTransaction: NexusGenRootTypes['Transaction'] | null; // Transaction
     getTransactions: NexusGenRootTypes['Transaction'][]; // [Transaction!]!
   }
@@ -90,11 +97,15 @@ export interface NexusGenFieldTypes {
 }
 
 export interface NexusGenFieldTypeNames {
+  AuthResponse: { // field return type name
+    token: 'String'
+  }
   Mutation: { // field return type name
     addExpense: 'Transaction'
     addIncome: 'Transaction'
   }
   Query: { // field return type name
+    authenticate: 'AuthResponse'
     getOneTransaction: 'Transaction'
     getTransactions: 'Transaction'
   }
@@ -125,6 +136,9 @@ export interface NexusGenArgTypes {
     }
   }
   Query: {
+    authenticate: { // args
+      password: string; // String!
+    }
     getOneTransaction: { // args
       id: string; // ID!
     }
