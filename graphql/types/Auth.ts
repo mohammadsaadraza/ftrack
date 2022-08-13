@@ -5,7 +5,8 @@ import jwt from "jsonwebtoken";
 export const AuthResponse = objectType({
     name: "AuthResponse",
     definition(t){
-        t.nonNull.string("token")
+        t.nonNull.string("access_token")
+        t.nonNull.string("refresh_token")
     }
 })
 
@@ -36,11 +37,12 @@ export const Authenticate = extendType({
                     expiresIn: "5m"
                 })
                 const refresh_token = jwt.sign({ id: user.id, role: user.type}, process.env.JWT_SECRET, {
-                    expiresIn: "1d"
+                    expiresIn: "4h"
                 })
 
                 return {
-                    token: access_token
+                    access_token,
+                    refresh_token
                 }
             }
         })

@@ -3,7 +3,8 @@
 
 
 type AuthResponse {
-  token: String!
+  access_token: String!
+  refresh_token: String!
 }
 
 enum CurrencyType {
