@@ -86,6 +86,7 @@ export interface NexusGenFieldTypes {
     authenticate: NexusGenRootTypes['AuthResponse']; // AuthResponse!
     getOneTransaction: NexusGenRootTypes['Transaction'] | null; // Transaction
     getTransactions: NexusGenRootTypes['Transaction'][]; // [Transaction!]!
+    refresh: NexusGenRootTypes['AuthResponse']; // AuthResponse!
   }
   Transaction: { // field return type
     createdAt: NexusGenScalars['DateTime']; // DateTime!
@@ -111,6 +112,7 @@ export interface NexusGenFieldTypeNames {
     authenticate: 'AuthResponse'
     getOneTransaction: 'Transaction'
     getTransactions: 'Transaction'
+    refresh: 'AuthResponse'
   }
   Transaction: { // field return type name
     createdAt: 'DateTime'

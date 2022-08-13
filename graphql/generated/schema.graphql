@@ -26,6 +26,7 @@ type Query {
   authenticate(password: String!): AuthResponse!
   getOneTransaction(id: ID!): Transaction
   getTransactions(currency: CurrencyType, type: TransactionCategory): [Transaction!]!
+  refresh: AuthResponse!
 }
 
 type Transaction {
