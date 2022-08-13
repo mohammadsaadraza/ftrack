@@ -1,3 +1,4 @@
+import { AuthenticationError } from "apollo-server-micro";
 import {enumType, extendType, idArg, intArg, nonNull, objectType, stringArg} from "nexus";
 
 export const Transaction = objectType({
@@ -39,6 +40,13 @@ export const AddExpense = extendType({
                 currency: nonNull(CurrencyType)
             },
             async resolve(parent, args, context){
+
+                if (!context.user) {
+                  throw new AuthenticationError(
+                    "Token Expired. Unauthenticated"
+                  );
+                }
+                
                 return await context.prisma.transaction.create({
                     data: {
                         type: "Expense",
@@ -66,6 +74,13 @@ export const AddIncome = extendType({
                 currency: nonNull(CurrencyType)
             },
             async resolve(parent, args, context){
+
+                if (!context.user) {
+                  throw new AuthenticationError(
+                    "Token Expired. Unauthenticated"
+                  );
+                }
+
                 return await context.prisma.transaction.create({
                     data: {
                         type: "Income",
@@ -90,6 +105,11 @@ export const getTransactions = extendType({
                 currency: CurrencyType
             },
             resolve: async (parent, args, context) => {
+
+                if(!context.user){
+                    throw new AuthenticationError("Token Expired. Unauthenticated")
+                }
+
                 const where = {}
                 for (let key in args) {
                     // @ts-ignore
@@ -116,6 +136,13 @@ export const getOneTransaction = extendType({
                 id: nonNull(idArg())
             },
             async resolve(parent, args,context){
+
+                if (!context.user) {
+                  throw new AuthenticationError(
+                    "Token Expired. Unauthenticated"
+                  );
+                }
+
                 return await context.prisma.transaction.findUnique({
                     where: {
                         id: args.id
