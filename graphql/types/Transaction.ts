@@ -204,3 +204,29 @@ export const updateTransaction = extendType({
         })
     }
 })
+
+export const deleteTransaction = extendType({
+    type: "Mutation",
+    definition(t){
+        t.nonNull.field("deleteTransaction", {
+            type: Transaction,
+            args: {
+                id: nonNull(idArg())
+            },
+            async resolve(parent, args, context){
+
+                if (!context.user) {
+                  throw new AuthenticationError(
+                    "Token Expired. Unauthenticated"
+                  );
+                }
+                
+                return await context.prisma.transaction.delete({
+                    where: {
+                        id: args.id
+                    }
+                })
+            }
+        })
+    }
+})

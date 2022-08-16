@@ -82,6 +82,7 @@ export interface NexusGenFieldTypes {
   Mutation: { // field return type
     addExpense: NexusGenRootTypes['Transaction']; // Transaction!
     addIncome: NexusGenRootTypes['Transaction']; // Transaction!
+    deleteTransaction: NexusGenRootTypes['Transaction']; // Transaction!
     updateTransaction: NexusGenRootTypes['Transaction']; // Transaction!
   }
   Query: { // field return type
@@ -110,6 +111,7 @@ export interface NexusGenFieldTypeNames {
   Mutation: { // field return type name
     addExpense: 'Transaction'
     addIncome: 'Transaction'
+    deleteTransaction: 'Transaction'
     updateTransaction: 'Transaction'
   }
   Query: { // field return type name
@@ -143,6 +145,9 @@ export interface NexusGenArgTypes {
       currency: NexusGenEnums['CurrencyType']; // CurrencyType!
       date: NexusGenScalars['DateTime']; // DateTime!
       description: string; // String!
+    }
+    deleteTransaction: { // args
+      id: string; // ID!
     }
     updateTransaction: { // args
       amount?: number | null; // Int
