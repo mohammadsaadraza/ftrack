@@ -148,6 +148,7 @@ export interface NexusGenArgTypes {
       id: string; // ID!
     }
     getTransactions: { // args
+      contains?: string | null; // String
       currency?: NexusGenEnums['CurrencyType'] | null; // CurrencyType
       type?: NexusGenEnums['TransactionCategory'] | null; // TransactionCategory
     }

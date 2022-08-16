@@ -102,7 +102,8 @@ export const getTransactions = extendType({
             type: Transaction,
             args: {
                 type: TransactionType,
-                currency: CurrencyType
+                currency: CurrencyType,
+                contains: stringArg()
             },
             resolve: async (parent, args, context) => {
 
@@ -110,12 +111,22 @@ export const getTransactions = extendType({
                     throw new AuthenticationError("Token Expired. Unauthenticated")
                 }
 
-                const where = {}
+                const where: any = {}
                 for (let key in args) {
                     // @ts-ignore
                     if(args[key]){
-                        // @ts-ignore
-                        where[key] = args[key]
+
+                      if (key == "contains") {
+
+                        where.description = {
+                          // @ts-ignore
+                          contains: args[key],
+                        };
+                        continue;
+                      }
+
+                      // @ts-ignore
+                      where[key] = args[key];
                     }
                 }
 
