@@ -103,7 +103,9 @@ export const getTransactions = extendType({
             args: {
                 type: TransactionType,
                 currency: CurrencyType,
-                contains: stringArg()
+                contains: stringArg(),
+                take: intArg(),
+                skip: intArg()
             },
             resolve: async (parent, args, context) => {
 
@@ -124,6 +126,9 @@ export const getTransactions = extendType({
                         };
                         continue;
                       }
+                      else if (key == "take" || key == "skip") {
+                        continue;
+                      }
 
                       // @ts-ignore
                       where[key] = args[key];
@@ -131,7 +136,9 @@ export const getTransactions = extendType({
                 }
 
                 return await context.prisma.transaction.findMany({
-                    where
+                    where,
+                    take: args.take || undefined,
+                    skip: args.skip || undefined
                 })
             }
         })
