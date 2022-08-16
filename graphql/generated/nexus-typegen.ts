@@ -46,6 +46,10 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  AuthResponse: { // root type
+    access_token: string; // String!
+    refresh_token: string; // String!
+  }
   Mutation: {};
   Query: {};
   Transaction: { // root type
@@ -70,13 +74,19 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars & NexusGenEnums
 
 export interface NexusGenFieldTypes {
+  AuthResponse: { // field return type
+    access_token: string; // String!
+    refresh_token: string; // String!
+  }
   Mutation: { // field return type
     addExpense: NexusGenRootTypes['Transaction']; // Transaction!
     addIncome: NexusGenRootTypes['Transaction']; // Transaction!
   }
   Query: { // field return type
+    authenticate: NexusGenRootTypes['AuthResponse']; // AuthResponse!
     getOneTransaction: NexusGenRootTypes['Transaction'] | null; // Transaction
     getTransactions: NexusGenRootTypes['Transaction'][]; // [Transaction!]!
+    refresh: NexusGenRootTypes['AuthResponse']; // AuthResponse!
   }
   Transaction: { // field return type
     createdAt: NexusGenScalars['DateTime']; // DateTime!
@@ -90,13 +100,19 @@ export interface NexusGenFieldTypes {
 }
 
 export interface NexusGenFieldTypeNames {
+  AuthResponse: { // field return type name
+    access_token: 'String'
+    refresh_token: 'String'
+  }
   Mutation: { // field return type name
     addExpense: 'Transaction'
     addIncome: 'Transaction'
   }
   Query: { // field return type name
+    authenticate: 'AuthResponse'
     getOneTransaction: 'Transaction'
     getTransactions: 'Transaction'
+    refresh: 'AuthResponse'
   }
   Transaction: { // field return type name
     createdAt: 'DateTime'
@@ -125,11 +141,17 @@ export interface NexusGenArgTypes {
     }
   }
   Query: {
+    authenticate: { // args
+      password: string; // String!
+    }
     getOneTransaction: { // args
       id: string; // ID!
     }
     getTransactions: { // args
+      contains?: string | null; // String
       currency?: NexusGenEnums['CurrencyType'] | null; // CurrencyType
+      skip?: number | null; // Int
+      take?: number | null; // Int
       type?: NexusGenEnums['TransactionCategory'] | null; // TransactionCategory
     }
   }

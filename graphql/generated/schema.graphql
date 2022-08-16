@@ -2,6 +2,11 @@
 ### Do not make changes to this file directly
 
 
+type AuthResponse {
+  access_token: String!
+  refresh_token: String!
+}
+
 enum CurrencyType {
   PKR
   USD
@@ -18,8 +23,10 @@ type Mutation {
 }
 
 type Query {
+  authenticate(password: String!): AuthResponse!
   getOneTransaction(id: ID!): Transaction
-  getTransactions(currency: CurrencyType, type: TransactionCategory): [Transaction!]!
+  getTransactions(contains: String, currency: CurrencyType, skip: Int, take: Int, type: TransactionCategory): [Transaction!]!
+  refresh: AuthResponse!
 }
 
 type Transaction {
