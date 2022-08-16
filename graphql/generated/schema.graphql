@@ -20,6 +20,7 @@ scalar DateTime
 type Mutation {
   addExpense(amount: Int!, currency: CurrencyType!, date: DateTime!, description: String!): Transaction!
   addIncome(amount: Int!, currency: CurrencyType!, date: DateTime!, description: String!): Transaction!
+  updateTransaction(amount: Int, currency: CurrencyType, date: DateTime, description: String, id: ID!, type: TransactionCategory): Transaction!
 }
 
 type Query {
@@ -30,6 +31,7 @@ type Query {
 }
 
 type Transaction {
+  amount: Int!
   createdAt: DateTime!
   currency: CurrencyType!
   date: DateTime!

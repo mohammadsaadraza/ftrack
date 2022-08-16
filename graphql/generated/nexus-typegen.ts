@@ -53,6 +53,7 @@ export interface NexusGenObjects {
   Mutation: {};
   Query: {};
   Transaction: { // root type
+    amount: number; // Int!
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     currency: NexusGenEnums['CurrencyType']; // CurrencyType!
     date: NexusGenScalars['DateTime']; // DateTime!
@@ -81,6 +82,7 @@ export interface NexusGenFieldTypes {
   Mutation: { // field return type
     addExpense: NexusGenRootTypes['Transaction']; // Transaction!
     addIncome: NexusGenRootTypes['Transaction']; // Transaction!
+    updateTransaction: NexusGenRootTypes['Transaction']; // Transaction!
   }
   Query: { // field return type
     authenticate: NexusGenRootTypes['AuthResponse']; // AuthResponse!
@@ -89,6 +91,7 @@ export interface NexusGenFieldTypes {
     refresh: NexusGenRootTypes['AuthResponse']; // AuthResponse!
   }
   Transaction: { // field return type
+    amount: number; // Int!
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     currency: NexusGenEnums['CurrencyType']; // CurrencyType!
     date: NexusGenScalars['DateTime']; // DateTime!
@@ -107,6 +110,7 @@ export interface NexusGenFieldTypeNames {
   Mutation: { // field return type name
     addExpense: 'Transaction'
     addIncome: 'Transaction'
+    updateTransaction: 'Transaction'
   }
   Query: { // field return type name
     authenticate: 'AuthResponse'
@@ -115,6 +119,7 @@ export interface NexusGenFieldTypeNames {
     refresh: 'AuthResponse'
   }
   Transaction: { // field return type name
+    amount: 'Int'
     createdAt: 'DateTime'
     currency: 'CurrencyType'
     date: 'DateTime'
@@ -138,6 +143,14 @@ export interface NexusGenArgTypes {
       currency: NexusGenEnums['CurrencyType']; // CurrencyType!
       date: NexusGenScalars['DateTime']; // DateTime!
       description: string; // String!
+    }
+    updateTransaction: { // args
+      amount?: number | null; // Int
+      currency?: NexusGenEnums['CurrencyType'] | null; // CurrencyType
+      date?: NexusGenScalars['DateTime'] | null; // DateTime
+      description?: string | null; // String
+      id: string; // ID!
+      type?: NexusGenEnums['TransactionCategory'] | null; // TransactionCategory
     }
   }
   Query: {

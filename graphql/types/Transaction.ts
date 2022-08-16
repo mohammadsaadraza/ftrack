@@ -12,6 +12,7 @@ export const Transaction = objectType({
             type: CurrencyType
         })
         t.nonNull.string("description")
+        t.nonNull.int("amount")
         t.nonNull.datetime("date")
         t.nonNull.datetime("createdAt")
         t.nonNull.datetime("updatedAt")
@@ -166,6 +167,39 @@ export const getOneTransaction = extendType({
                         id: args.id
                     }
                 })
+            }
+        })
+    }
+})
+
+export const updateTransaction = extendType({
+    type: "Mutation",
+    definition(t){
+        t.nonNull.field("updateTransaction", {
+            type: Transaction,
+            args: {
+                id: nonNull(idArg()),
+                date: "DateTime",
+                description: stringArg(),
+                amount: intArg(),
+                currency: CurrencyType,
+                type: TransactionType
+            },
+            async resolve(parent, args, context){
+                    
+                    if (!context.user) {
+                    throw new AuthenticationError(
+                        "Token Expired. Unauthenticated"
+                    );
+                    }
+    
+                    return await context.prisma.transaction.update({
+                        where: {
+                            id: args.id
+                        },
+                        //@ts-ignore
+                        data: args
+                    })
             }
         })
     }
