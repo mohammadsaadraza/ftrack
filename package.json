@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "npm run generate:graphql-schema && npm run generate:prisma-client && next dev",
-    "build": "npm generate:graphql-schema && npm generate:prisma-client && next build",
+    "build": "npm run generate:graphql-schema && npm run generate:prisma-client && next build",
     "start": "next start",
     "lint": "next lint",
     "generate:graphql-schema": "ts-node --transpile-only graphql/schema.ts --nexusTypegen",
@@ -20,6 +20,7 @@
     "graphql": "^16.5.0",
     "graphql-scalars": "^1.17.0",
     "jsonwebtoken": "^8.5.1",
+    "micro": "^9.4.1",
     "next": "12.2.3",
     "nexus": "^1.3.0",
     "react": "18.2.0",
@@ -35,6 +36,7 @@
     "eslint": "8.20.0",
     "eslint-config-next": "12.2.3",
     "prisma": "^4.1.1",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "typescript": "^4.7.4"
   }
 }
