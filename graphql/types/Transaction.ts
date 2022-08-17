@@ -48,15 +48,20 @@ export const AddExpense = extendType({
                   );
                 }
                 
-                return await context.prisma.transaction.create({
+                try {
+                  return await context.prisma.transaction.create({
                     data: {
-                        type: "Expense",
-                        date: args.date,
-                        description: args.description,
-                        amount: args.amount,
-                        currency: args.currency
-                    }
-                })
+                      type: "Expense",
+                      date: args.date,
+                      description: args.description,
+                      amount: args.amount,
+                      currency: args.currency,
+                    },
+                  });
+                } catch (e: any) {
+                  console.log((e as Error).message);
+                  throw new Error("Problem with Mutation");
+                }
             }
         })
     }
@@ -82,15 +87,20 @@ export const AddIncome = extendType({
                   );
                 }
 
-                return await context.prisma.transaction.create({
+                try {
+                  return await context.prisma.transaction.create({
                     data: {
-                        type: "Income",
-                        date: args.date,
-                        description: args.description,
-                        amount: args.amount,
-                        currency: args.currency
-                    }
-                })
+                      type: "Income",
+                      date: args.date,
+                      description: args.description,
+                      amount: args.amount,
+                      currency: args.currency,
+                    },
+                  });
+                } catch (e: any) {
+                  console.log((e as Error).message);
+                  throw new Error("Problem with Mutation");
+                }
             }
         })
     }
@@ -114,33 +124,35 @@ export const getTransactions = extendType({
                     throw new AuthenticationError("Token Expired. Unauthenticated")
                 }
 
-                const where: any = {}
-                for (let key in args) {
+                try {
+                  const where: any = {};
+                  for (let key in args) {
                     // @ts-ignore
-                    if(args[key]){
-
+                    if (args[key]) {
                       if (key == "contains") {
-
                         where.description = {
                           // @ts-ignore
                           contains: args[key],
                         };
                         continue;
-                      }
-                      else if (key == "take" || key == "skip") {
+                      } else if (key == "take" || key == "skip") {
                         continue;
                       }
 
                       // @ts-ignore
                       where[key] = args[key];
                     }
-                }
+                  }
 
-                return await context.prisma.transaction.findMany({
+                  return await context.prisma.transaction.findMany({
                     where,
                     take: args.take || undefined,
-                    skip: args.skip || undefined
-                })
+                    skip: args.skip || undefined,
+                  });
+                } catch (e: any) {
+                  console.log((e as Error).message);
+                  throw new Error("Problem with Query");
+                }
             }
         })
     }
@@ -162,11 +174,16 @@ export const getOneTransaction = extendType({
                   );
                 }
 
-                return await context.prisma.transaction.findUnique({
+                try {
+                  return await context.prisma.transaction.findUnique({
                     where: {
-                        id: args.id
-                    }
-                })
+                      id: args.id,
+                    },
+                  });
+                } catch (e: any) {
+                  console.log((e as Error).message);
+                  throw new Error("Problem with Query");
+                }
             }
         })
     }
@@ -193,6 +210,7 @@ export const updateTransaction = extendType({
                     );
                     }
     
+                    try{
                     return await context.prisma.transaction.update({
                         where: {
                             id: args.id
@@ -200,6 +218,10 @@ export const updateTransaction = extendType({
                         //@ts-ignore
                         data: args
                     })
+                    }catch(e: any){
+                        console.log((e as Error).message)
+                        throw new Error("Problem with Mutation")
+                    }
             }
         })
     }
@@ -221,11 +243,16 @@ export const deleteTransaction = extendType({
                   );
                 }
                 
-                return await context.prisma.transaction.delete({
+                try {
+                  return await context.prisma.transaction.delete({
                     where: {
-                        id: args.id
-                    }
-                })
+                      id: args.id,
+                    },
+                  });
+                } catch (e: any) {
+                  console.log((e as Error).message);
+                  throw new Error("Problem with Mutation");
+                }
             }
         })
     }

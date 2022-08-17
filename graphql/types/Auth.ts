@@ -34,16 +34,29 @@ export const Authenticate = extendType({
                     throw new Error("Something went wrong") 
                 }
 
-                const access_token = jwt.sign({ id: user.id, role: user.type}, process.env.JWT_SECRET, {
-                    expiresIn: "5m"
-                })
-                const refresh_token = jwt.sign({ id: user.id, role: user.type}, process.env.JWT_SECRET, {
-                    expiresIn: "4h"
-                })
+                try {
+                  const access_token = jwt.sign(
+                    { id: user.id, role: user.type },
+                    process.env.JWT_SECRET,
+                    {
+                      expiresIn: "5m",
+                    }
+                  );
+                  const refresh_token = jwt.sign(
+                    { id: user.id, role: user.type },
+                    process.env.JWT_SECRET,
+                    {
+                      expiresIn: "4h",
+                    }
+                  );
 
-                return {
+                  return {
                     access_token,
-                    refresh_token
+                    refresh_token,
+                  };
+                } catch (e: any) {
+                  console.log((e as Error).message);
+                  throw new Error("Problem with Query");
                 }
             }
         })
@@ -65,16 +78,29 @@ export const Refresh = extendType({
                     throw new Error("Something went wrong") 
                 }
 
-                const access_token = jwt.sign({ id: context.user.id, role: context.user.type}, process.env.JWT_SECRET, {
-                    expiresIn: "5m"
-                })
-                const refresh_token = jwt.sign({ id: context.user.id, role: context.user.type}, process.env.JWT_SECRET, {
-                    expiresIn: "4h"
-                })
+                try {
+                  const access_token = jwt.sign(
+                    { id: context.user.id, role: context.user.type },
+                    process.env.JWT_SECRET,
+                    {
+                      expiresIn: "5m",
+                    }
+                  );
+                  const refresh_token = jwt.sign(
+                    { id: context.user.id, role: context.user.type },
+                    process.env.JWT_SECRET,
+                    {
+                      expiresIn: "4h",
+                    }
+                  );
 
-                return {
+                  return {
                     access_token,
-                    refresh_token
+                    refresh_token,
+                  };
+                } catch (e: any) {
+                  console.log((e as Error).message);
+                  throw new Error("Problem with Query");
                 }
             }
         })
