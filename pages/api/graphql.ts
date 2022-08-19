@@ -12,7 +12,7 @@ const apolloServer = new ApolloServer({
     context,
     cache: "bounded",
     introspection: true,
-    plugins: [ApolloServerPluginLandingPageLocalDefault({embed: true})]
+    plugins: process.env.NODE_ENV === "production" ? undefined : [ApolloServerPluginLandingPageLocalDefault({embed: true})]
 })
 const startServer = apolloServer.start()
 
