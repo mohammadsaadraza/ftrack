@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ES2022",
     "lib": [
       "dom",
       "dom.iterable",
@@ -13,8 +13,8 @@
     "noEmit": true,
     "incremental": true,
     "esModuleInterop": true,
-    "module": "commonjs",
-    "moduleResolution": "NodeNext",
+    "module": "esnext",
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve"
@@ -24,6 +24,13 @@
     "**/*.ts",
     "**/*.tsx"
   ],
+  "ts-node": {
+    "compilerOptions": {
+      "target": "ES6",
+      "module": "CommonJS",
+      "moduleResolution": "node"
+    }
+  },
   "exclude": [
     "node_modules"
   ]

@@ -9,15 +9,16 @@
     "lint": "next lint",
     "generate:graphql-schema": "ts-node --transpile-only graphql/schema.ts --nexusTypegen",
     "generate:prisma-client": "npx prisma generate",
-    "db:clean": "npx prisma migrate reset",
+    "db:clean": "npx prisma migrate reset --force",
     "db:seed": "ts-node ./prisma/seed.ts",
     "db:prod:seed": "ts-node ./prisma/seed.prod.ts"
   },
   "dependencies": {
+    "@apollo/client": "^3.6.9",
     "@prisma/client": "^4.1.1",
     "apollo-server-micro": "^3.10.0",
     "bcrypt": "^5.0.1",
-    "graphql": "^16.5.0",
+    "graphql": "^16.6.0",
     "graphql-scalars": "^1.17.0",
     "jsonwebtoken": "^8.5.1",
     "micro": "^9.4.1",
