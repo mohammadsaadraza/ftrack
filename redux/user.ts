@@ -8,10 +8,10 @@ export interface User {
 }
 
 export interface AuthOutput {
-    authenticate: {
+    
         access_token: string,
         refresh_token: string
-    }
+    
 }
 
 export interface AuthInput {
@@ -25,17 +25,18 @@ const userSlice = createSlice({
         setUser: (state, action: PayloadAction<AuthOutput | null>) => {
 
             if (!action.payload) {
+                localStorage.removeItem("token")
                 return null
             }
 
-            const {id, role} = jwt.decode(action.payload.authenticate.access_token) as User
+            const {id, role} = jwt.decode(action.payload.access_token) as User
 
-            localStorage.setItem("token", action.payload.authenticate.refresh_token)
+            localStorage.setItem("token", action.payload.refresh_token)
             
             return {
                 id,
                 role,
-                access_token: action.payload.authenticate.access_token,
+                access_token: action.payload.access_token,
             }
         }
     }
