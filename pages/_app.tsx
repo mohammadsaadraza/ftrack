@@ -4,7 +4,7 @@ import '../styles/globals.css'
 import { Provider } from 'react-redux'
 
 import store from '../store'
-import apolloClient from "../hooks/apollo";
+import apolloClient from "../utils/apolloClient";
 import { ApolloProvider } from "@apollo/client";
 
 function MyApp({ Component, pageProps} : AppProps) {
