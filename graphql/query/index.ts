@@ -8,3 +8,25 @@ export const AUTH = gql`
     }
   }
 `;
+
+export const REFRESH_AUTH = gql`
+  query Refresh {
+    refresh {
+      access_token
+      refresh_token
+    }
+  }
+`;
+
+export const GET_TRANSACTIONS = gql`
+  query GetTransactions {
+    getTransactions {
+      type
+      id
+      currency
+      description
+      date
+      amount
+    }
+  }
+`;
