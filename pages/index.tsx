@@ -1,10 +1,13 @@
-import { useApolloClient, useQuery } from "@apollo/client"
-import { useStore } from "react-redux"
-import { AUTH } from "../graphql/query"
+import { BrowserRendering } from "../components/functional/BrowserRedering";
+import User from "../components/functional/User";
 
-
-export default function Home() {
-  const { client, loading, data, error} = useQuery(AUTH, { variables: { password: "Ftrack123$%"}})
-  console.log(data, loading, error)
-  return <div>Index Page</div>
+export default function DashBoard() {
+    return (
+        <div>
+            <div>Dashboard</div>
+            <BrowserRendering>
+                <User/>
+            </BrowserRendering>
+        </div>
+    )
 }
