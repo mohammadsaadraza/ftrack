@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { REFRESH_AUTH } from "../../graphql/query";
+import useLocalStorage from "../../hooks/useLocalStorage";
 import { useStateSelector } from "../../hooks/useState";
 import { AuthInput, AuthOutput, setUser } from "../../redux/user";
 
@@ -12,6 +13,7 @@ export default function User() {
   const user = useStateSelector(state => state.user);
 
   const apolloClient = useApolloClient()
+  const [token, setToken] = useLocalStorage("token")
   
 
   useEffect(() => {
@@ -21,7 +23,7 @@ export default function User() {
     const fetch = async () => {
       if (!user) {
 
-        if (localStorage.getItem("token")) {
+        if (token) {
 
           const { data, error } = await apolloClient.query<{refresh: AuthOutput}>(
             {
@@ -29,7 +31,7 @@ export default function User() {
               fetchPolicy: "network-only",
               context: {
                 headers: {
-                  authorization: `Bearer ${localStorage.getItem("token")}`
+                  authorization: `Bearer ${token}`
                 },
               },
             });
@@ -49,7 +51,7 @@ export default function User() {
 
     fetch()
     
-  }, [apolloClient, dispatch, router, user])
+  }, [apolloClient, dispatch, router, user, token])
 
   return (
     <div>

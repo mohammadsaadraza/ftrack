@@ -1,5 +1,5 @@
 
-export default function useLocalStorage<T>(key: string ) : [T | null , (value: T) => void] {
+export default function useLocalStorage<T extends string>(key: string ) : [T | null , (value: T) => void] {
 
     const item = window.localStorage.getItem(key);
 
